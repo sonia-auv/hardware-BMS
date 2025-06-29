@@ -1,0 +1,9 @@
+\.settings
+Debug/
+\.cproject
+\.mxproject
+\.project
+FREERTOS_TESTS.launch
+STM32F407VGTX_FLASH.ld
+STM32F407VGTX_RAM.ld
+Drivers/
