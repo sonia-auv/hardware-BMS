@@ -4,3 +4,5 @@ STM32F407VGTX_FLASH.ld
 STM32F407VGTX_RAM.ld
 Drivers/
 \.vscode
+BMS_LOG/Software/STM32-DISC1/BMS_MTP_VB.00/BMS_MTP_VB.00/Core/Pilote/piloteI2C.c
+\.metadata

@@ -15,8 +15,8 @@
   *
   ******************************************************************************
   */
-/* USER CODE END Header */
-/* Includes ------------------------------------------------------------------*/
+  /* USER CODE END Header */
+  /* Includes ------------------------------------------------------------------*/
 #include "main.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -91,26 +91,26 @@ void main_initialiseApresLeHAL(void);
 void main_initialiseAvantLeHAL(void)
 {
 
-	piloteTimer6Up_initialise();
-	piloteIOB1_initialise();
-	piloteIOT1_initialise();
-	piloteIOT2_initialise();
-	piloteIOT3_initialise();
-	piloteIOT4_initialise();
+  piloteTimer6Up_initialise();
+  piloteIOB1_initialise();
+  piloteIOT1_initialise();
+  piloteIOT2_initialise();
+  piloteIOT3_initialise();
+  piloteIOT4_initialise();
 
-	serviceBaseDeTemps_initialise();
+  serviceBaseDeTemps_initialise();
 
-	interfaceB1_initialise();
-	interface_LED3_Orange_initialise();
-	interface_LED4_Vert_initialise();
-	interface_LED5_Rouge_initialise();
-	interface_LED6_Blue_initialise();
+  interfaceB1_initialise();
+  interface_LED3_Orange_initialise();
+  interface_LED4_Vert_initialise();
+  interface_LED5_Rouge_initialise();
+  interface_LED6_Blue_initialise();
 
-	processusClignotant_initialise();
+  processusClignotant_initialise();
 }
 void main_initialiseApresLeHAL(void)
 {
-	piloteTimer6Up_permetLesInterruptions();
+  piloteTimer6Up_permetLesInterruptions();
 }
 void neFaitRien(void)
 {
@@ -173,8 +173,8 @@ int main(void)
   */
 void SystemClock_Config(void)
 {
-  RCC_OscInitTypeDef RCC_OscInitStruct = {0};
-  RCC_ClkInitTypeDef RCC_ClkInitStruct = {0};
+  RCC_OscInitTypeDef RCC_OscInitStruct = { 0 };
+  RCC_ClkInitTypeDef RCC_ClkInitStruct = { 0 };
 
   /** Configure the main internal regulator output voltage
   */
@@ -199,8 +199,8 @@ void SystemClock_Config(void)
 
   /** Initializes the CPU, AHB and APB buses clocks
   */
-  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK|RCC_CLOCKTYPE_SYSCLK
-                              |RCC_CLOCKTYPE_PCLK1|RCC_CLOCKTYPE_PCLK2;
+  RCC_ClkInitStruct.ClockType = RCC_CLOCKTYPE_HCLK | RCC_CLOCKTYPE_SYSCLK
+    | RCC_CLOCKTYPE_PCLK1 | RCC_CLOCKTYPE_PCLK2;
   RCC_ClkInitStruct.SYSCLKSource = RCC_SYSCLKSOURCE_PLLCLK;
   RCC_ClkInitStruct.AHBCLKDivider = RCC_SYSCLK_DIV1;
   RCC_ClkInitStruct.APB1CLKDivider = RCC_HCLK_DIV4;
@@ -296,8 +296,8 @@ static void MX_TIM3_Init(void)
 
   /* USER CODE END TIM3_Init 0 */
 
-  TIM_ClockConfigTypeDef sClockSourceConfig = {0};
-  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_ClockConfigTypeDef sClockSourceConfig = { 0 };
+  TIM_MasterConfigTypeDef sMasterConfig = { 0 };
 
   /* USER CODE BEGIN TIM3_Init 1 */
 
@@ -341,7 +341,7 @@ static void MX_TIM6_Init(void)
 
   /* USER CODE END TIM6_Init 0 */
 
-  TIM_MasterConfigTypeDef sMasterConfig = {0};
+  TIM_MasterConfigTypeDef sMasterConfig = { 0 };
 
   /* USER CODE BEGIN TIM6_Init 1 */
 
@@ -442,7 +442,7 @@ static void MX_USB_OTG_FS_PCD_Init(void)
   */
 static void MX_GPIO_Init(void)
 {
-  GPIO_InitTypeDef GPIO_InitStruct = {0};
+  GPIO_InitTypeDef GPIO_InitStruct = { 0 };
   /* USER CODE BEGIN MX_GPIO_Init_1 */
 
   /* USER CODE END MX_GPIO_Init_1 */
@@ -459,14 +459,14 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_WritePin(CS_I2C_SPI_GPIO_Port, CS_I2C_SPI_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOC, SPI1_CS_Pin|DAT_COM_Pin|RST_Pin|PWR_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOC, SPI1_CS_Pin | DAT_COM_Pin | RST_Pin | PWR_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin Output Level */
   HAL_GPIO_WritePin(OTG_FS_PowerSwitchOn_GPIO_Port, OTG_FS_PowerSwitchOn_Pin, GPIO_PIN_SET);
 
   /*Configure GPIO pin Output Level */
-  HAL_GPIO_WritePin(GPIOD, LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
-                          |Audio_RST_Pin, GPIO_PIN_RESET);
+  HAL_GPIO_WritePin(GPIOD, LD4_Pin | LD3_Pin | LD5_Pin | LD6_Pin
+    | Audio_RST_Pin, GPIO_PIN_RESET);
 
   /*Configure GPIO pin : CS_I2C_SPI_Pin */
   GPIO_InitStruct.Pin = CS_I2C_SPI_Pin;
@@ -477,8 +477,8 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : SPI1_CS_Pin OTG_FS_PowerSwitchOn_Pin DAT_COM_Pin RST_Pin
                            PWR_Pin */
-  GPIO_InitStruct.Pin = SPI1_CS_Pin|OTG_FS_PowerSwitchOn_Pin|DAT_COM_Pin|RST_Pin
-                          |PWR_Pin;
+  GPIO_InitStruct.Pin = SPI1_CS_Pin | OTG_FS_PowerSwitchOn_Pin | DAT_COM_Pin | RST_Pin
+    | PWR_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -522,8 +522,8 @@ static void MX_GPIO_Init(void)
 
   /*Configure GPIO pins : LD4_Pin LD3_Pin LD5_Pin LD6_Pin
                            Audio_RST_Pin */
-  GPIO_InitStruct.Pin = LD4_Pin|LD3_Pin|LD5_Pin|LD6_Pin
-                          |Audio_RST_Pin;
+  GPIO_InitStruct.Pin = LD4_Pin | LD3_Pin | LD5_Pin | LD6_Pin
+    | Audio_RST_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_OUTPUT_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -536,7 +536,7 @@ static void MX_GPIO_Init(void)
   HAL_GPIO_Init(BUSY_GPIO_Port, &GPIO_InitStruct);
 
   /*Configure GPIO pins : I2S3_SCK_Pin I2S3_SD_Pin */
-  GPIO_InitStruct.Pin = I2S3_SCK_Pin|I2S3_SD_Pin;
+  GPIO_InitStruct.Pin = I2S3_SCK_Pin | I2S3_SD_Pin;
   GPIO_InitStruct.Mode = GPIO_MODE_AF_PP;
   GPIO_InitStruct.Pull = GPIO_NOPULL;
   GPIO_InitStruct.Speed = GPIO_SPEED_FREQ_LOW;
@@ -587,11 +587,11 @@ void Error_Handler(void)
   * @param  line: assert_param error line source number
   * @retval None
   */
-void assert_failed(uint8_t *file, uint32_t line)
+void assert_failed(uint8_t* file, uint32_t line)
 {
   /* USER CODE BEGIN 6 */
   /* User can add his own implementation to report the file name and line number,
      ex: printf("Wrong parameters value: file %s on line %d\r\n", file, line) */
-  /* USER CODE END 6 */
+     /* USER CODE END 6 */
 }
 #endif /* USE_FULL_ASSERT */

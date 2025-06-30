@@ -16,9 +16,9 @@
   *
   ******************************************************************************
   */
-/* USER CODE END Header */
+  /* USER CODE END Header */
 
-/* Define to prevent recursive inclusion -------------------------------------*/
+  /* Define to prevent recursive inclusion -------------------------------------*/
 #ifndef __MAIN_H
 #define __MAIN_H
 
@@ -26,7 +26,7 @@
 extern "C" {
 #endif
 
-/* Includes ------------------------------------------------------------------*/
+  /* Includes ------------------------------------------------------------------*/
 #include "stm32f4xx_hal.h"
 
 /* Private includes ----------------------------------------------------------*/
@@ -50,13 +50,13 @@ extern "C" {
 /* USER CODE END EM */
 
 /* Exported functions prototypes ---------------------------------------------*/
-void Error_Handler(void);
+  void Error_Handler(void);
 
-/* USER CODE BEGIN EFP */
+  /* USER CODE BEGIN EFP */
 
-/* USER CODE END EFP */
+  /* USER CODE END EFP */
 
-/* Private defines -----------------------------------------------------------*/
+  /* Private defines -----------------------------------------------------------*/
 #define CS_I2C_SPI_Pin GPIO_PIN_3
 #define CS_I2C_SPI_GPIO_Port GPIOE
 #define SPI1_CS_Pin GPIO_PIN_13
@@ -179,14 +179,14 @@ void Error_Handler(void);
 #define PROCESSUSCLIGNOTANT_TEMPS_LONG_ETEINT_EN_MS  500
 #define PROCESSUSCLIGNOTANT_TEMPS_LONG_ALLUME_EN_MS  500
 
-/**
-  * @brief Define des Phase pour base de temps
-  */
+  /**
+    * @brief Define des Phase pour base de temps
+    */
 #define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES             2
 #define INTERFACEB1_PHASE                               0
 #define PROCESSUSCLIGNOTANT_PHASE   					1
 
-//Definitions publiques:
+    //Definitions publiques:
 #define INFORMATION_DISPONIBLE  1
 #define INFORMATION_TRAITEE  0
 #define REQUETE_ACTIVE  1
@@ -194,8 +194,8 @@ void Error_Handler(void);
 #define MODULE_EN_FONCTION 1
 #define MODULE_PAS_EN_FONCTION 0
 
-void neFaitRien(void);
-/* USER CODE END Private defines */
+  void neFaitRien(void);
+  /* USER CODE END Private defines */
 
 #ifdef __cplusplus
 }
