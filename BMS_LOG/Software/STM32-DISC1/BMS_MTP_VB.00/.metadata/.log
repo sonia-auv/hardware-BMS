@@ -16,3 +16,15 @@ Command-line arguments:  -os win32 -ws win32 -arch x86_64
 
 !ENTRY org.eclipse.cdt.core 1 0 2025-06-30 09:20:46.932
 !MESSAGE Indexed 'BMS_MTP_VB.00' (28 sources, 90 headers) in 3.55 sec: 8,139 declarations; 62,394 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0028%)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-06-30 18:44:02.390
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 58 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-06-30 18:44:02.399
+!MESSAGE Existing sessions are:
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-06-30 18:44:02.400
+!MESSAGE Error - No active DSF-Session. tmpSessionId = 58 (contextManager row 121)
+
+!ENTRY com.st.stm32cube.ide.mcu.debug 4 0 2025-06-30 18:44:02.400
+!MESSAGE Existing sessions are:

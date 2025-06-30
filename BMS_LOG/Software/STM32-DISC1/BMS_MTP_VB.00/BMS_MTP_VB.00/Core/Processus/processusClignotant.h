@@ -27,17 +27,22 @@
 
 //Fonctions publiques:
 void processusClignotant_initialise(void);
+
 void processusClignotant_orange_AllumeLongtemps(void);
 void processusClignotant_orange_Eteint_court(void);
 
-void processusClignotant_orange_Eteint_relache(void);
-void processusClignotant_orange_Allume_relache(void);
-
-void processusClignotant_blue_Eteint_relache(void);
-void processusClignotant_blue_Allume_relache(void);
-
 void processusClignotant_blue_AllumeLongtemps(void);
-void processusClignotant_blue_Eteint_court(void);
+void processusClignotant_blue_AllumeLongtemps_relache(void);
+
+void processusClignotant_blue_AllumeCourt(void);
+void processusClignotant_blue_AllumeCourt_relache(void);
+
+void processusClignotant_blue_EteintCourt(void);
+void processusClignotant_blue_EteintLongtemps(void);
+
+
+
+
 //Variables publiques:
 //pas de variables publiques
 

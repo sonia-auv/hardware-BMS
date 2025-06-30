@@ -12,7 +12,7 @@
 #include "../Interface/interface_LED6_Blue.h"
 
 #include "../Service/serviceBaseDeTemps.h"
-#include "../Processus/processusClignotant.h"
+#include "processusClignotant.h"
 
 //Definitions privees
 #define PROCESSUSCLIGNOTANT_COMPTE_COURT_ETEINT (\
@@ -42,7 +42,7 @@ void processusClignotant_initialise(void)
 {
 	processusClignotant_compteur = 0;
 	serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] =
-		processusClignotant_orange_AllumeLongtemps;
+			processusClignotant_blue_AllumeLongtemps;
 }
 
 // --- Fonctions pour LED BLEUE ---
@@ -55,7 +55,7 @@ void processusClignotant_blue_AllumeLongtemps(void)
 		processusClignotant_compteur = 0;
 		interface_LED6_Blue_eteint();
 		serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] =
-			processusClignotant_orange_Allume_relache;
+		processusClignotant_blue_AllumeCourt_relache;
 	}
 	if (processusClignotant_compteur < PROCESSUSCLIGNOTANT_COMPTE_LONG_ALLUME)
 	{
@@ -63,95 +63,75 @@ void processusClignotant_blue_AllumeLongtemps(void)
 	}
 	processusClignotant_compteur = 0;
 	serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] =
-		processusClignotant_blue_Eteint_court;
+		processusClignotant_blue_EteintLongtemps;
 }
 
-void processusClignotant_blue_Eteint_court(void)
+void processusClignotant_blue_EteintLongtemps(void)
 {
 	interface_LED6_Blue_eteint();
 	processusClignotant_compteur++;
-	if (processusClignotant_compteur < PROCESSUSCLIGNOTANT_COMPTE_LONG_ALLUME / 2)
+	if (processusClignotant_compteur < PROCESSUSCLIGNOTANT_COMPTE_LONG_ETEINT)
 	{
 		return;
 	}
 	processusClignotant_compteur = 0;
 	serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] =
-		processusClignotant_orange_AllumeLongtemps;
+			processusClignotant_blue_AllumeLongtemps;
 }
 
-void processusClignotant_blue_Allume_relache(void)
+void processusClignotant_blue_AllumeCourt_relache(void)
 {
 	if (interfaceB1.etatDuBouton == INTERFACEB1_APPUYE)
 	{
 		return;
 	}
 	serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] =
-		processusClignotant_blue_AllumeLongtemps;
+		processusClignotant_blue_AllumeCourt;
 }
 
-void processusClignotant_blue_Eteint_relache(void)
+void processusClignotant_blue_AllumeCourt(void)
 {
-	if (interfaceB1.etatDuBouton == INTERFACEB1_APPUYE)
-	{
-		return;
-	}
-	serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] =
-		processusClignotant_blue_Eteint_court;
-}
-
-// --- Fonctions pour LED ORANGE ---
-void processusClignotant_orange_AllumeLongtemps(void)
-{
-	interface_LED3_Orange_allume();
+	interface_LED6_Blue_allume();
 	processusClignotant_compteur++;
 	if (interfaceB1.etatDuBouton == INTERFACEB1_APPUYE)
 	{
 		processusClignotant_compteur = 0;
-		interface_LED3_Orange_eteint();
 		serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] =
-			processusClignotant_blue_Allume_relache;
+			processusClignotant_blue_AllumeLongtemps_relache;
 	}
-	if (processusClignotant_compteur < PROCESSUSCLIGNOTANT_COMPTE_LONG_ALLUME)
+	if (processusClignotant_compteur < PROCESSUSCLIGNOTANT_COMPTE_COURT_ALLUME)
 	{
 		return;
 	}
 	processusClignotant_compteur = 0;
 	serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] =
-		processusClignotant_orange_Eteint_court;
+		processusClignotant_blue_EteintCourt;
 }
 
-void processusClignotant_orange_Eteint_court(void)
+void processusClignotant_blue_EteintCourt(void)
 {
-	interface_LED3_Orange_eteint();
+	interface_LED6_Blue_eteint();
 	processusClignotant_compteur++;
-	if (processusClignotant_compteur < PROCESSUSCLIGNOTANT_COMPTE_LONG_ALLUME / 2)
+	if (processusClignotant_compteur < PROCESSUSCLIGNOTANT_COMPTE_COURT_ETEINT)
 	{
 		return;
 	}
 	processusClignotant_compteur = 0;
 	serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] =
-		processusClignotant_blue_AllumeLongtemps;
+			processusClignotant_blue_AllumeCourt;
 }
 
-void processusClignotant_orange_Allume_relache(void)
+void processusClignotant_blue_AllumeLongtemps_relache(void)
 {
 	if (interfaceB1.etatDuBouton == INTERFACEB1_APPUYE)
 	{
 		return;
 	}
 	serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] =
-		processusClignotant_orange_AllumeLongtemps;
+			processusClignotant_blue_AllumeLongtemps;
 }
 
-void processusClignotant_orange_Eteint_relache(void)
-{
-	if (interfaceB1.etatDuBouton == INTERFACEB1_APPUYE)
-	{
-		return;
-	}
-	serviceBaseDeTemps_execute[PROCESSUSCLIGNOTANT_PHASE] =
-		processusClignotant_orange_Eteint_court;
-}
+
 
 //Definitions de variables publiques:
 // Aucune variable publique

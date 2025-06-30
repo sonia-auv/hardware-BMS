@@ -29,9 +29,13 @@
 #include "../Pilote/piloteIOT3.h"
 #include "../Pilote/piloteIOT4.h"
 
+#include "../Pilote/piloteI2C.h"
+#include "../Pilote/piloteSPI.h"
+#include "../Pilote/piloteSPI_EPAPER.h"
+
 #include "../Service/serviceBaseDeTemps.h"
 
-
+#include "../Interface/EPD_352_Interface.h"
 #include "../Interface/interfaceB1.h"
 #include "../Interface/interface_LED3_Orange.h"
 #include "../Interface/interface_LED4_Vert.h"
@@ -39,6 +43,7 @@
 #include "../Interface/interface_LED6_Blue.h"
 
 #include "../Processus/processusClignotant.h"
+#include "../Processus/processusEPD.h"
 /* USER CODE END Includes */
 
 /* Private typedef -----------------------------------------------------------*/
@@ -97,19 +102,29 @@ void main_initialiseAvantLeHAL(void)
   piloteIOT2_initialise();
   piloteIOT3_initialise();
   piloteIOT4_initialise();
+  piloteI2C_initialise();
+  piloteSPI_initialise();
+  piloteSPI_EPAPER_initialise();
 
   serviceBaseDeTemps_initialise();
 
-  interfaceB1_initialise();
+
+
+
+}
+void main_initialiseApresLeHAL(void)
+{
   interface_LED3_Orange_initialise();
   interface_LED4_Vert_initialise();
   interface_LED5_Rouge_initialise();
   interface_LED6_Blue_initialise();
 
+  interfaceEPD_initialise();
+  interfaceB1_initialise();
+
   processusClignotant_initialise();
-}
-void main_initialiseApresLeHAL(void)
-{
+  processusEPD_initialise();
+
   piloteTimer6Up_permetLesInterruptions();
 }
 void neFaitRien(void)

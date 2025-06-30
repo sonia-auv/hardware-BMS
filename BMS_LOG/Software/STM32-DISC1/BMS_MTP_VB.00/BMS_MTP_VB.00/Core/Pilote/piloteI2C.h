@@ -24,7 +24,7 @@
 
 /* Exported functions prototypes ---------------------------------------------*/
 
-void piloteI2C_Write1Byte(unsigned char ucAddress,unsigned char ucI2C_Output);
+int piloteI2C_Write1Byte(unsigned char ucAddress,unsigned char ucI2C_Output);
 unsigned char piloteI2C_Read1Byte(unsigned char ucAddress);
 void piloteI2C_initialise(void);
 

@@ -24,6 +24,7 @@
 //pas de variables publiques
 
 //Definitions de fonctions publiques:
+
 void interface_LED3_Orange_allume(void)
 {
   piloteIOT2_metLaSortieA(INTERFACE_LED3_ORANGE_VALEUR_POUR_ALLUMER);
