@@ -1,0 +1,18 @@
+!SESSION 2025-06-30 09:19:43.112 -----------------------------------------------
+eclipse.buildId=Version 1.18.1
+java.version=21.0.3
+java.vendor=Eclipse Adoptium
+BootLoader constants: OS=win32, ARCH=x86_64, WS=win32, NL=fr_CA
+Command-line arguments:  -os win32 -ws win32 -arch x86_64
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 4 4 2025-06-30 09:19:50.798
+!MESSAGE CubeMX plugin appears to be active, Log4j initialization might be too late.
+
+!ENTRY com.st.stm32cube.ide.mcu.informationcenter 1 1 2025-06-30 09:19:50.800
+!MESSAGE Log4j2 initialized with config file D:\Sonia_git\hardware_index_sonia1\BMS_LOG\Software\STM32-DISC1\BMS_MTP_VB.00\.metadata\.log4j2.xml
+
+!ENTRY com.st.stm32cube.ide.mcu.ide 1 1 2025-06-30 09:19:53.700
+!MESSAGE Started RMI Server, listening on port 41337
+
+!ENTRY org.eclipse.cdt.core 1 0 2025-06-30 09:20:46.932
+!MESSAGE Indexed 'BMS_MTP_VB.00' (28 sources, 90 headers) in 3.55 sec: 8,139 declarations; 62,394 references; 0 unresolved inclusions; 1 syntax errors; 2 unresolved names (0.0028%)
