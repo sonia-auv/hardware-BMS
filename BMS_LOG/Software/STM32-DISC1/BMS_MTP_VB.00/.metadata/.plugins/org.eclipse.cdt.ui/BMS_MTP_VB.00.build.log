@@ -1,17 +1,17 @@
-22:34:54 **** Incremental Build of configuration Debug for project BMS_MTP_VB.00 ****
+23:48:27 **** Incremental Build of configuration Debug for project BMS_MTP_VB.00 ****
 make -j16 all 
-arm-none-eabi-gcc "../Core/Processus/processusEPD.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Processus/processusEPD.d" -MT"Core/Processus/processusEPD.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Processus/processusEPD.o"
+arm-none-eabi-gcc "../Core/Interface/EPD_352_Interface.c" -mcpu=cortex-m4 -std=gnu11 -g3 -DDEBUG -DUSE_HAL_DRIVER -DSTM32F407xx -c -I../Core/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc -I../Drivers/STM32F4xx_HAL_Driver/Inc/Legacy -I../Drivers/CMSIS/Device/ST/STM32F4xx/Include -I../Drivers/CMSIS/Include -O0 -ffunction-sections -fdata-sections -Wall -fstack-usage -fcyclomatic-complexity -MMD -MP -MF"Core/Interface/EPD_352_Interface.d" -MT"Core/Interface/EPD_352_Interface.o" --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -o "Core/Interface/EPD_352_Interface.o"
 arm-none-eabi-g++ -o "BMS_MTP_VB.00.elf" @"objects.list"   -mcpu=cortex-m4 -T"D:\Sonia_git\hardware_index_sonia1\BMS_LOG\Software\STM32-DISC1\BMS_MTP_VB.00\BMS_MTP_VB.00\STM32F407VGTX_FLASH.ld" --specs=nosys.specs -Wl,-Map="BMS_MTP_VB.00.map" -Wl,--gc-sections -static --specs=nano.specs -mfpu=fpv4-sp-d16 -mfloat-abi=hard -mthumb -Wl,--start-group -lc -lm -lstdc++ -lsupc++ -Wl,--end-group
 Finished building target: BMS_MTP_VB.00.elf
  
 arm-none-eabi-size  BMS_MTP_VB.00.elf 
 arm-none-eabi-objdump -h -S BMS_MTP_VB.00.elf  > "BMS_MTP_VB.00.list"
    text	   data	    bss	    dec	    hex	filename
-  23856	     12	  59084	  82952	  14408	BMS_MTP_VB.00.elf
+  37664	     92	  59444	  97200	  17bb0	BMS_MTP_VB.00.elf
 Finished building: default.size.stdout
  
 Finished building: BMS_MTP_VB.00.list
  
 
-22:34:55 Build Finished. 0 errors, 0 warnings. (took 902ms)
+23:48:28 Build Finished. 0 errors, 0 warnings. (took 907ms)
 

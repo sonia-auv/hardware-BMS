@@ -6,12 +6,15 @@
  */
  //INCLUSIONS
 #include "main.h"
-
+#include <stdlib.h>
 #include "../Pilote/piloteI2C.h"
 #include "../Pilote/piloteSPI_EPAPER.h"
 #include "../Interface/interface_LED4_Vert.h"
 #include "../Interface/EPD_352_Interface.h"
 #include "../Service/serviceBaseDeTemps.h"
+#include "../Interface/fonts.h"
+#include "../Interface/GUI_Paint.h"
+#include "../Interface/ImageData.h"
 #include "processusEPD.h"
 
 //Definitions privees
@@ -20,7 +23,7 @@
 //Declarations de fonctions privees:
 
 unsigned int processusEPD_compteur;
-
+uint8_t* image;
 //Definitions de variables privees:
 
 //Definitions de fonctions privees:
@@ -107,25 +110,28 @@ void processusEPD_Affichage_waiting_refresh_postdelay500(void)
 }
 void processusEPD_Affichage_printingbootscreen(void)
 {
-	uint8_t* imagenoir;
+
 	uint16_t imagesize = ((EPD_3IN52_WIDTH % 8 == 0) ? (EPD_3IN52_WIDTH / 8) : (EPD_3IN52_WIDTH / 8 + 1)) * EPD_3IN52_HEIGHT;
-	if ((imagenoir = (uint8_t*)malloc(imagesize)) == NULL)
+	if ((image = (uint8_t*)malloc(imagesize)) == NULL)
 	{
-		uart_len = sprintf(uart_buf, "Failed to apply for black memory...\r\n");
-		HAL_UART_Transmit(&huart2, (uint8_t*)uart_buf, uart_len, HAL_MAX_DELAY);
-		return -1;
+		free(image);
+		serviceBaseDeTemps_execute[PROCESSUSEPD_PHASE] = processusEPD_Affichage_printingbootscreen;
 	}
-	Paint_NewImage(imagenoir, EPD_3IN52_WIDTH, EPD_3IN52_HEIGHT, ROTATE_270, WHITE);
-	Paint_Clear(WHITE);
+	else
+	{
+		Paint_NewImage(image, EPD_3IN52_WIDTH, EPD_3IN52_HEIGHT, ROTATE_270, WHITE);
+		Paint_Clear(WHITE);
 
-	Paint_SelectImage(imagenoir);
-	Paint_Clear(WHITE);
-	Paint_DrawBitMap(gImage_Didou);
+		Paint_SelectImage(image);
+		Paint_Clear(WHITE);
+		Paint_DrawBitMap(gImage_Didou);
 
-	EPD_352_display(imagenoir);
-	EPD_352_lut_GC();
-	interfaceEPD.request = INTERFACEEPD_REQUEST_REFRESH;
-	serviceBaseDeTemps_execute[PROCESSUSEPD_PHASE] = processusEPD_Affichage_waiting_refresh_2;
+		EPD_352_display(image);
+		EPD_352_lut_GC();
+		interfaceEPD.request = INTERFACEEPD_REQUEST_REFRESH;
+		serviceBaseDeTemps_execute[PROCESSUSEPD_PHASE] = processusEPD_Affichage_waiting_refresh_2;
+	}
+
 }
 void processusEPD_Affichage_waiting_refresh_2(void)
 {
@@ -149,5 +155,16 @@ void processusEPD_Affichage_waiting_refresh_postdelay2000(void)
 		return;
 	}
 	processusEPD_compteur = 0;
-	serviceBaseDeTemps_execute[PROCESSUSEPD_PHASE] = processusEPD_Affichage_printingbootscreen;
+	serviceBaseDeTemps_execute[PROCESSUSEPD_PHASE] = processusEPD_Affichage_removingbootscreen;
 }
+void processusEPD_Affichage_removingbootscreen(void)
+{
+	Paint_SelectImage(image);
+	Paint_Clear(WHITE);
+	EPD_352_lut_GC();
+	EPD_352_refresh();
+	EPD_352_display(image);
+	Paint_SelectImage(image);
+	Paint_Clear(WHITE);
+}
+

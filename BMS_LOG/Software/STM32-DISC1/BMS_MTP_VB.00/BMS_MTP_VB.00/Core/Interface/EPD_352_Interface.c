@@ -89,6 +89,7 @@ void EPD_3IN52_lut(void)
 void EPD_352_lut_GC(void)
 {
     uint8_t count;
+    unsigned char EPD_352_FLAG = 0;
     EPD_352_SendCommand(0x20); // Set vcom
     for (count = 0; count < 56; count++)
     {

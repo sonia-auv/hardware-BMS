@@ -30,6 +30,9 @@ void processusEPD_Affichage_waiting_refresh_2(void);
 void processusEPD_Affichage_waiting_refresh_postdelay500(void);
 void processusEPD_Affichage_waiting_refresh_postdelay2000(void);
 
+void processusEPD_Affichage_printingbootscreen(void);
+void processusEPD_Affichage_removingbootscreen(void);
+
 //Variables publiques:
 //pas de variables publiques
 
