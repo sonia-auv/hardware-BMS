@@ -52,15 +52,7 @@ void EPD_352_SendData(uint8_t Data)
  * @brief
  *
  */
-void EPD_352_refresh(void)
-{
-    uint8_t busy = 0;
-    EPD_352_SendCommand(0x17);
-    EPD_352_SendData(0xA5);
-    while (!busy)
-        busy = HAL_GPIO_ReadPin(BUSY_GPIO_Port, BUSY_Pin);
-    HAL_Delay(200);
-}
+
 void EPD_3IN52_lut(void)
 {
     uint8_t count;
@@ -196,7 +188,7 @@ void EPD_352_lut_DU(void)
  */
 void EPD_352_Init(void)
 {
-    EPD_352_Reset(); // Reset the display
+    //EPD_352_Reset(); // Reset the display
 
     //HAL_GPIO_WritePin(SPI1_SCK_GPIO_Port,SPI1_SCK_Pin,GPIO_PIN_RESET);
     EPD_352_SendCommand(0x00); // SPI INIT
@@ -378,15 +370,15 @@ void interfaceEPD_initialise(void)
 {
 
     interfaceEPD.compteur = 0;
-    interfaceEPD.etatDuBusy = INTERFACEEPD_NOT_BUSY;
+    interfaceEPD.etatDuBusy = INTERFACEEPD_IS_BUSY;
     interfaceEPD.etatDuRst = INTERFACEEPD_NOT_RST;
     interfaceEPD.etatDuDelai = INTERFACEEPD_DELAI_ATTEIND;
     interfaceEPD.request = INTERFACEEPD_REQUEST_NONE;
-    serviceBaseDeTemps_execute[INTERFACEEPD_PHASE] = interfaceEPD_first_rst;
+    serviceBaseDeTemps_execute[INTERFACEEPD_PHASE] = interfaceEPD_gere;
 
 }
 
-void interfaceEPD_first_rst(void)
+void interfaceEPD_rst(void)
 {
 	if (interfaceEPD.request != INTERFACEEPD_REQUEST_INITIALISE)
 	{
@@ -408,6 +400,7 @@ void interfaceEPD_Delay200_MS(void)
 		return;
 	interfaceEPD.compteur = 0;
 	Pilote_RST_EPAPER_metAZero();
+	interfaceEPD.etatDuRst = INTERFACEEPD_IS_RST;
 	serviceBaseDeTemps_execute[INTERFACEEPD_PHASE] = interfaceEPD_Delay2_MS;
 	return;
 }
@@ -421,6 +414,7 @@ void interfaceEPD_Delay2_MS(void)
 	}
 	interfaceEPD.compteur =0;
 	Pilote_RST_EPAPER_metAUn();
+	interfaceEPD.etatDuRst = INTERFACEEPD_NOT_RST;
 	interface_LED5_Rouge_eteint();
 	serviceBaseDeTemps_execute[INTERFACEEPD_PHASE] = interface_delay_safetycooldown;
 	interfaceEPD.request = INTERFACEEPD_REQUEST_NONE;
@@ -437,5 +431,48 @@ void interface_delay_safetycooldown(void)
 }
 void interfaceEPD_gere(void)
 {
+    switch(interfaceEPD.request)
+    {
+        case INTERFACEEPD_REQUEST_NONE:
+        	serviceBaseDeTemps_execute[INTERFACEEPD_PHASE] = interfaceEPD_gere;
+            break;
+        case INTERFACEEPD_REQUEST_RESET:
+        	serviceBaseDeTemps_execute[INTERFACEEPD_PHASE] = interfaceEPD_rst;
+            break;
+        case INTERFACEEPD_REQUEST_REFRESH:
+        	serviceBaseDeTemps_execute[INTERFACEEPD_PHASE] = interfaceEPD_refresh;
+            break;
+        case INTERFACEEPD_REQUEST_INITIALISE:
+            serviceBaseDeTemps_execute[INTERFACEEPD_PHASE] = interfaceEPD_rst;
+            break;
+        default:
+        	serviceBaseDeTemps_execute[INTERFACEEPD_PHASE] = interfaceEPD_gere;
+        	break;
+    }
+    return;
+}
+void interfaceEPD_refresh(void)
+{
+    EPD_352_SendCommand(0x17);
+    EPD_352_SendData(0xA5);
+    serviceBaseDeTemps_execute[INTERFACEEPD_PHASE] = interfaceEPD_refresh_2;
+}
 
+void interfaceEPD_refresh_2(void)
+{
+	if(!(interfaceEPD.etatDuBusy = Pilote_BUSY_EPAPER_lit()))
+		return;
+	interfaceEPD.etatDuBusy = INTERFACEEPD_NOT_BUSY;
+	interfaceEPD.request = INTERFACEEPD_REQUEST_NONE;
+	serviceBaseDeTemps_execute[INTERFACEEPD_PHASE] = interface_delay_safetycooldown;
+}
+
+void EPD_352_refresh(void)
+{
+    uint8_t busy = 0;
+    EPD_352_SendCommand(0x17);
+    EPD_352_SendData(0xA5);
+    while (!busy)
+        busy = HAL_GPIO_ReadPin(BUSY_GPIO_Port, BUSY_Pin);
+    HAL_Delay(200);
 }

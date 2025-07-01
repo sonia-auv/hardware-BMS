@@ -188,15 +188,16 @@ extern "C" {
 #define PROCESSUSCLIGNOTANT_TEMPS_LONG_ETEINT_EN_MS   (400 * 64 / 100)
 #define PROCESSUSCLIGNOTANT_TEMPS_LONG_ALLUME_EN_MS   (400 * 64 / 100)
 
-#define PROCESSUSEPD_TEMP_RST_MS  (410 * 64 / 50)
-
-
+#define PROCESSUSEPD_TEMPS_RST_MS  					  (4000 * 64 / 50)
+#define PROCESSUSEPD_TEMPS_REFRESH_MS 				  (4000 * 64 / 50)
+#define PROCESSUSEPD_TEMPS_500_MS					  (500 * 64 / 100)
+#define PROCESSUSEPD_TEMPS_2000_MS                    (2000 * 64 / 100)
   /**
     * @brief Define des Phase pour base de temps
     */
 #define SERVICEBASEDETEMPS_NOMBRE_DE_PHASES             6
 #define INTERFACEB1_PHASE                               0
-#define INTERFACEEPD_PHASE                               1
+#define INTERFACEEPD_PHASE                              1
 #define PROCESSUSCLIGNOTANT_PHASE   					2
 #define PROCESSUSBMS_PHASE								3
 #define PROCESSUSRS485_PHASE							4

@@ -37,10 +37,14 @@ void EPD_352_Reset(void);
 // New interface functions
 void interfaceEPD_initialise(void);
 void interfaceEPD_gere(void);
-void interfaceEPD_first_rst(void);
+void interfaceEPD_rst(void);
+void interfaceEPD_refresh(void);
+void interfaceEPD_refresh_2(void);
+
 void interfaceEPD_Delay200_MS(void);
 void interfaceEPD_Delay2_MS(void);
 void interface_delay_safetycooldown(void);
+
 
 #define INTERFACEEPD_INCONNU 0
 #define INTERFACEEPD_IS_BUSY  2
