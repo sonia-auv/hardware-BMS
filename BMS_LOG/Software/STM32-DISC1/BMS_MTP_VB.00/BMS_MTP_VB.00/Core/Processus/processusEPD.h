@@ -22,16 +22,20 @@
 //Fonctions publiques:
 void processusEPD_initialise(void);
 void processusEPD_request_init(void);
-void processusEPD_rst_waiting_busy(void);
+void processusEPD_rst_waiting_rst(void);
 void processusEPD_post_reset(void);
 void processusEPD_Affichage_bootscreen(void);
 void processusEPD_Affichage_waiting_refresh_1(void);
 void processusEPD_Affichage_waiting_refresh_2(void);
+void processusEPD_Affichage_waiting_refresh_3(void);
+
 void processusEPD_Affichage_waiting_refresh_postdelay500(void);
 void processusEPD_Affichage_waiting_refresh_postdelay2000(void);
 
 void processusEPD_Affichage_printingbootscreen(void);
 void processusEPD_Affichage_removingbootscreen(void);
+
+void processusEPD_Affichage_loop(void);
 
 //Variables publiques:
 //pas de variables publiques

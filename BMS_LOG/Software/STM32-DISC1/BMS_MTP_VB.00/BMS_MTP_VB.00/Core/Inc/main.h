@@ -181,7 +181,7 @@ extern "C" {
 #define INTERFACE_MECH_TEMPS_EN_MS_SHORT 5
 
 #define INTERFACEEPD_TEMPS_RST_MS  (400 * 64 / 100)
-#define INTERFACEEPD_COMPTE_1_MS    2
+#define INTERFACEEPD_COMPTE_2_MS    2
 
 #define PROCESSUSCLIGNOTANT_TEMPS_COURT_ETEINT_EN_MS  (200 * 64 / 100)
 #define PROCESSUSCLIGNOTANT_TEMPS_COURT_ALLUME_EN_MS  (200 * 64 / 100)
@@ -190,8 +190,8 @@ extern "C" {
 
 #define PROCESSUSEPD_TEMPS_RST_MS  					  (4000 * 64 / 50)
 #define PROCESSUSEPD_TEMPS_REFRESH_MS 				  (4000 * 64 / 50)
-#define PROCESSUSEPD_TEMPS_500_MS					  (500 * 64 / 100)
-#define PROCESSUSEPD_TEMPS_2000_MS                    (2000 * 64 / 100)
+#define PROCESSUSEPD_TEMPS_500_MS					  (500 * 64 / 50)
+#define PROCESSUSEPD_TEMPS_2000_MS                    (2000 * 64 / 50)
   /**
     * @brief Define des Phase pour base de temps
     */

@@ -10,6 +10,7 @@
 #include "../Pilote/piloteI2C.h"
 #include "../Pilote/piloteSPI_EPAPER.h"
 #include "../Interface/interface_LED4_Vert.h"
+#include "../Interface/interface_LED3_Orange.h"
 #include "../Interface/EPD_352_Interface.h"
 #include "../Service/serviceBaseDeTemps.h"
 #include "../Interface/fonts.h"
@@ -40,14 +41,13 @@ void processusEPD_initialise(void)
 }
 void processusEPD_request_init(void)
 {
-	interface_LED4_Vert_allume();
 	interfaceEPD.request = INTERFACEEPD_REQUEST_INITIALISE;
 	serviceBaseDeTemps_execute[PROCESSUSEPD_PHASE] =
-		processusEPD_rst_waiting_busy;
+			processusEPD_rst_waiting_rst;
 
 }
 
-void processusEPD_rst_waiting_busy(void)
+void processusEPD_rst_waiting_rst(void)
 {
 	processusEPD_compteur++;
 	// If the delay is not reached and a request is still pending, stay in this process
@@ -66,7 +66,6 @@ void processusEPD_rst_waiting_busy(void)
 }
 void processusEPD_post_reset(void)
 {
-	interface_LED4_Vert_eteint();
 	EPD_352_Init();
 	serviceBaseDeTemps_execute[PROCESSUSEPD_PHASE] =
 		processusEPD_Affichage_bootscreen;
@@ -115,17 +114,16 @@ void processusEPD_Affichage_printingbootscreen(void)
 	if ((image = (uint8_t*)malloc(imagesize)) == NULL)
 	{
 		free(image);
+		interface_LED4_Vert_allume();
 		serviceBaseDeTemps_execute[PROCESSUSEPD_PHASE] = processusEPD_Affichage_printingbootscreen;
 	}
 	else
 	{
 		Paint_NewImage(image, EPD_3IN52_WIDTH, EPD_3IN52_HEIGHT, ROTATE_270, WHITE);
 		Paint_Clear(WHITE);
-
 		Paint_SelectImage(image);
 		Paint_Clear(WHITE);
 		Paint_DrawBitMap(gImage_Didou);
-
 		EPD_352_display(image);
 		EPD_352_lut_GC();
 		interfaceEPD.request = INTERFACEEPD_REQUEST_REFRESH;
@@ -162,9 +160,31 @@ void processusEPD_Affichage_removingbootscreen(void)
 	Paint_SelectImage(image);
 	Paint_Clear(WHITE);
 	EPD_352_lut_GC();
-	EPD_352_refresh();
+	interfaceEPD.request = INTERFACEEPD_REQUEST_REFRESH;
+	serviceBaseDeTemps_execute[PROCESSUSEPD_PHASE] = processusEPD_Affichage_waiting_refresh_3;
+	return;
+
+}
+void processusEPD_Affichage_waiting_refresh_3(void)
+{
+	processusEPD_compteur++;
+	if (processusEPD_compteur < PROCESSUSEPD_TEMPS_REFRESH_MS)
+	{
+		if (interfaceEPD.request != INTERFACEEPD_REQUEST_NONE)
+		{
+			// If a request is pending, we stay in this process
+			return;
+		}
+	}
+	processusEPD_compteur = 0;
 	EPD_352_display(image);
 	Paint_SelectImage(image);
 	Paint_Clear(WHITE);
+	serviceBaseDeTemps_execute[PROCESSUSEPD_PHASE] = processusEPD_Affichage_loop;
+	return;
+}
+void processusEPD_Affichage_loop(void)
+{
+
 }
 

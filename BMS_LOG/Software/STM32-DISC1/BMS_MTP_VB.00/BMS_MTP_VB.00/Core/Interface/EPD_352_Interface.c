@@ -366,6 +366,20 @@ void EPD_352_Reset(void)
     Pilote_RST_EPAPER_metAUn();
     HAL_Delay(200);
 }
+
+
+void EPD_352_refresh(void)
+{
+    uint8_t busy = 0;
+    EPD_352_SendCommand(0x17);
+    EPD_352_SendData(0xA5);
+    while (!busy)
+        busy = HAL_GPIO_ReadPin(BUSY_GPIO_Port, BUSY_Pin);
+    HAL_Delay(200);
+}
+
+
+/* --------------------------INTERFACE PHASE-------------------------------------- */
 INTERFACEEPD interfaceEPD;
 void interfaceEPD_initialise(void)
 {
@@ -409,7 +423,7 @@ void interfaceEPD_Delay200_MS(void)
 void interfaceEPD_Delay2_MS(void)
 {
 	interfaceEPD.compteur++;
-	if (interfaceEPD.compteur < INTERFACEEPD_COMPTE_1_MS)
+	if (interfaceEPD.compteur < INTERFACEEPD_COMPTE_2_MS)
 	{
 		return;
 	}
@@ -466,14 +480,4 @@ void interfaceEPD_refresh_2(void)
 	interfaceEPD.etatDuBusy = INTERFACEEPD_NOT_BUSY;
 	interfaceEPD.request = INTERFACEEPD_REQUEST_NONE;
 	serviceBaseDeTemps_execute[INTERFACEEPD_PHASE] = interface_delay_safetycooldown;
-}
-
-void EPD_352_refresh(void)
-{
-    uint8_t busy = 0;
-    EPD_352_SendCommand(0x17);
-    EPD_352_SendData(0xA5);
-    while (!busy)
-        busy = HAL_GPIO_ReadPin(BUSY_GPIO_Port, BUSY_Pin);
-    HAL_Delay(200);
 }
